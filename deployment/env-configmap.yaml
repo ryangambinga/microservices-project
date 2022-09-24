@@ -5,9 +5,9 @@ metadata:
 data:
   POSTGRES_USERNAME: postgres
   POSTGRES_PASSWORD: postgres123
-  POSTGRES_HOST: postgre.cx70ytxslhsq.us-east-1.rds.amazonaws.com
+  POSTGRES_HOST: postgres.c779qre0synn.us-east-1.rds.amazonaws.com
   POSTGRES_DB: postgres
-  AWS_BUCKET: ryanmicroservicebucket
+  AWS_BUCKET: ryanmicroservicebuckets
   AWS_REGION: us-east-1AWS_PROFILE=default
   JWT_SECRET: testing
   URL: http://localhost:8100
