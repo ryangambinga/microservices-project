@@ -22,18 +22,3 @@ spec:
             cpu: 1000m
           requests:
             cpu: 500m
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    service: reverseproxy
-  name: reverseproxy
-spec:
-  ports:
-  - name: "8080"
-    port: 8080
-    targetPort: 8080
-  selector:
-    service: reverseproxy
