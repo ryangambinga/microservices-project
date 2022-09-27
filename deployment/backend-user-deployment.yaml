@@ -1,26 +1,68 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend-user
+  labels:
+    service: backend-user-service
+  name: backend-user-deployment
 spec:
+  replicas: 2
   selector:
     matchLabels:
-      run: backend-user
-  replicas: 2
+      service: backend-user-service
   template:
     metadata:
       labels:
-        run: backend-user
+        service: backend-user-service
     spec:
       containers:
-      - name: backend-user
-        image: docker.io/ryangambinga/udagram-api-user
-        ports:
-        - containerPort: 80
+      - image: docker.io/ryangambinga/udagram-api-user
+        name: backend-user 
+        imagePullPolicy: Always  
         resources:
-          limits:
-            cpu: 500m
           requests:
-            cpu: 200m
-
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "1024Mi"
+            cpu: "500m"      
+        env:
+        - name: URL
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: URL 
+        - name: JWT_SECRET
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: JWT_SECRET
+        - name: POSTGRES_DB
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: POSTGRES_DB
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: POSTGRES_HOST
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: env-secret
+              key: POSTGRES_PASSWORD
+        - name: POSTGRES_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: env-secret
+              key: POSTGRES_USERNAME
+        volumeMounts:
+        - name: aws-secret
+          mountPath: "/root/.aws/"
+          readOnly: true
+      restartPolicy: Always
+      volumes:
+      - name: aws-secret
+        secret:
+          secretName: aws-secret
 
