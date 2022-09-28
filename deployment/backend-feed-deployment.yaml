@@ -2,17 +2,17 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: backend-feed-service
-  name: backend-feed-deployment
+    service: backend-feed
+  name: backend-feed
 spec:
   replicas: 2
   selector:
     matchLabels:
-      service: backend-feed-service
+      service: backend-feed
   template:
     metadata:
       labels:
-        service: backend-feed-service
+        service: backend-feed
     spec:
       containers:
       - image: docker.io/ryangambinga/udagram-api-feed

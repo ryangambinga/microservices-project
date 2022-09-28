@@ -22,17 +22,3 @@ spec:
             cpu: 500m
           requests:
             cpu: 200m
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: frontend
-  labels:
-    run: frontend
-spec:
-  ports:
-  - port: 80
-    protocol: TCP
-  selector:
-    run: frontend
